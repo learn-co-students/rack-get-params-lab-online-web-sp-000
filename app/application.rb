@@ -18,14 +18,13 @@ class Application
       if @@cart.empty?
         resp.write "Your cart is empty"
       else
-      cart = @@cart.collect {|item_in_cart| resp.write "#{item_in_cart}\n"}
-      #cart ||= resp.write "Your cart is empty"
+      @@cart.collect {|item_in_cart| resp.write "#{item_in_cart}\n"}
       end
     elsif req.path.match(/add/)
       item_term = req.params["item"]
       if @@items.include?(item_term)
-        cart = @@cart << "#{item_term}"
-        resp.write "added #{cart.last}"
+        @@cart << item_term
+        resp.write "added #{item_term}"
       else
         resp.write "We don't have that item"
       end
