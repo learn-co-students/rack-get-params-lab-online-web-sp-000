@@ -1,14 +1,14 @@
 class Application
 
   @@items = ["Apples","Carrots","Pears"]
+  @@cart = []
 
   def call(env)
     resp = Rack::Response.new
     req = Rack::Request.new(env)
 
-    if req.path.match(/items/)
-      @@items.each do |item|
-        resp.write "#{item}\n"
+  elsif req.path.match(/cart/)
+      resp.write @@cart.empty? ? "Your cart is empty"
       end
     elsif req.path.match(/search/)
       search_term = req.params["q"]
