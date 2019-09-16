@@ -13,10 +13,11 @@ class Application
       end
     elsif req.path.match(/add/)
       item = req.params["item"]
-      if !@@items.include?(item)
+      if @@items.include?(item)
+        @@cart << req.params["item"]
+        resp.write "added #{req.params["item"]}" 
+      else 
         resp.write "We don't have that item"
-      else @@cart << req.params["item"]
-        resp.write "added #{req.params["item"]}"
       end
     elsif req.path.match(/cart/)
       if @@cart.length == 0
