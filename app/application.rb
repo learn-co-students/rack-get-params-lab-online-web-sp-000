@@ -1,6 +1,7 @@
 class Application
 
   @@items = ["Apples","Carrots","Pears"]
+  @@cart = []           #create a new class array called cart to hold items
 
   def call(env)
     resp = Rack::Response.new
@@ -13,9 +14,13 @@ class Application
     elsif req.path.match(/search/)
       search_term = req.params["q"]
       resp.write handle_search(search_term)
+    elsif req.path.match(/add/)
+      search_term = req.params["item"]
+
+
     else
       resp.write "Path Not Found"
-    end
+    #end
 
     resp.finish
   end
