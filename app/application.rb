@@ -26,9 +26,9 @@ class Application
     elsif req.path.match(/add/)
       search = req.params["item"]
       
-      if @@items.include?("#{search}")
-        @@cart << @@items[@@items.find_index("#{search}")]
-        resp.write "added #{search}"
+      if @@items.include?(search)
+        @@cart << @@items[@@items.find_index(search)]
+        resp.write "added " + search 
       else
         resp.write "We don't have that item"
       end
