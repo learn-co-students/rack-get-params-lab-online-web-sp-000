@@ -16,11 +16,11 @@ class Application
       search_term = req.params["q"]
       resp.write handle_search(search_term)
     
-    elsif req.path.match(/item/)
-      item = req.params["q"]
+    elsif req.path.match(/add/)
+      item = req.params["item"]
       if @@cart.include?(item) == false
         @@cart << item
-        resp.write "added #{item}\n"
+        resp.write "added #{item}"
       elsif @@items.include?(item) == false
         resp.write "We don't have that item"
       else
