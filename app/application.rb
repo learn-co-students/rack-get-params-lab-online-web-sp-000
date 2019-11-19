@@ -1,3 +1,5 @@
+require 'pry'
+
 class Application
 
   @@items = ["Apples","Carrots","Pears"]
@@ -23,8 +25,14 @@ class Application
           end
         end
     elsif req.path.match(/add/)
-      item = req.params["q"]
-      resp.write handle_add(item)
+      add_item = req.params["item"]
+      if @@items.include?(add_item)
+        @@cart << add_item
+        # @@items.delete_at(@@items.index(item))
+        resp.write "added #{add_item}\n"
+      else
+        resp.write "We don't have that item\n"
+      end
     else
       resp.write "Path Not Found"
     end
@@ -38,14 +46,5 @@ class Application
       return "Couldn't find #{search_term}"
     end
   end
-
-  def handle_add(item)
-    if @@items.include?(item)
-      @@cart << item
-      @@items.delete_at(@@items.index(item))
-      return "added #{item}"
-    else
-      return "We don't have that item"
-    end
 
 end
