@@ -22,6 +22,17 @@ class Application
       else
       resp.write "Your cart is empty"
       end
+    
+    elsif req.path.match(/add/)
+ 
+      search_term = req.params["item"]
+ 
+      if @@items.include?(search_term)
+        resp.write "#{search_term} is one of our items"
+      else
+        resp.write "Couldn't find #{search_term}"
+      end
+    
     else
       resp.write "Path Not Found"
     end
