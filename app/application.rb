@@ -17,15 +17,6 @@ class Application
       end
     end
 
-    # if req.path.match(/add/)
-    #   @@items.each do |item|
-    #     @@cart << item
-    #     resp.write "added #{item}"
-    #   end
-    #   elsif 
-    #     resp.write "We don't have that item"
-    # end
-
     if req.path.match(/add/)
       item = req.params.values[0]
       if @@items.include?(item)
