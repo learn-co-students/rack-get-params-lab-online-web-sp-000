@@ -10,33 +10,38 @@ class Application
     if req.path.match(/items/)
       @@items.each do |item|
         resp.write "#{item}\n"
+    end
+      elsif req.path.match(/search/)
+        search_term = req.params["q"]
+        resp.write handle_search(search_term)
+
+      elsif req.path.match(/cart/)
+          if @@cart.count == 0
+              resp.write "Your cart is empty"
+          elsif @@cart.count != 0
+            @@cart.each do |i|
+            resp.write "#{i}\n"
+          end
+
+
+      elsif req.path.match(/add/)
+          item = req.params["item"]
+        if @@items.include?(item)
+          resp.write("item")
+        else nil || !@@items.include?(item)
+          resp.write "Error"
+          # resp.write("#{item}")
+          # @@cart << search_term
+        end
+
+      else
+          resp.write "Path Not Found"
       end
-    elsif req.path.match(/search/)
-      search_term = req.params["q"]
-      resp.write handle_search(search_term)
-    else
-      resp.write "Path Not Found"
+        resp.finish
     end
+end
 
 
-
-    if req.path.match(/cart/)
-      @@cart.each do |i|
-        resp.write "#{i}\n"
-    end
-  end
-  end
-  #     elsif req.path.match(/search/)
-  #       search_term = req.params["item"]
-  #       resp.write handle_search(search_term)
-  #   if @@items.include?(search_term)
-  #     @@carts << search_term
-  #       else
-  #        resp.write "Your cart is empty"
-  #   end
-  #   resp.finish
-  #    end
-  # end
 
 
   def handle_search(search_term)
