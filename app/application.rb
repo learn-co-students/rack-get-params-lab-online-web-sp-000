@@ -1,54 +1,40 @@
+class Song
+ 
+  attr_accessor :title, :artist
+ 
+  def initialize(title, artist)
+    @title = title
+    @artist = artist
+  end
+ 
+end
+
+
+
 class Application
-
-  @@items = ["Apples","Carrots","Pears"]
-  @@cart = []
-
+ 
+  @@songs = [Song.new("Sorry", "Justin Bieber"),
+            Song.new("Hello","Adele")]
+ 
   def call(env)
     resp = Rack::Response.new
     req = Rack::Request.new(env)
-
-    if req.path.match(/items/)
-      @@items.each do |item|
-        resp.write "#{item}\n"
+    if req.path == "/songs"
+      @@songs.each do |s|
+        resp.write "#{s.title} by #{s.artist}\n"
       end
-    elsif req.path.match(/search/)
-      search_term = req.params["q"]
-      resp.write handle_search(search_term)
 
-    elsif req.path.match(/cart/)
-      resp.write cart
-      #'/add?item=Figs'
-    elsif req.path.match(/add/)
-      add_item = req.params["item"]
-      resp.write handle_add(add_item)
-  
-    else
-      resp.write "Path Not Found"
+    elsif req.path.match(/songs/)
+ 
+      song_title = req.path.split("/songs/").last #turn/songs/Sorry into Sorry
+      song = @@songs.find{|s| s.title == song_title} 
+      resp.write song? song.artist : "There is no #{req.path}"
+
     end
-
+ 
     resp.finish
   end
-
-  def handle_search(search_term)
-    if @@items.include?(search_term)
-      return "#{search_term} is one of our items"
-    else
-      return "Couldn't find #{search_term}"
-    end
-  end
-
-  def cart
-    @@cart==[] ? "Your cart is empty" : @@cart.join("\n")
-    
-  end
-
-  def handle_add(add_item)
-    if @@items.include?(add_item)
-      @@cart << add_item
-      "added #{add_item}"
-    else
-      "We don't have that item"
-    end
-  end
-
 end
+
+
+
