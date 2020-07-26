@@ -45,14 +45,4 @@ class Application
     end
   end
 
-  # def add_item(item)
-  #     req.path.match(/add/)
-  #     item = req.params["GET"]
-  #     if handle_search(item)
-  #       @@cart << item
-  #     else
-  #       resp.write "We do not have #{item} for sale."
-  #     end
-  # end
-
 end
