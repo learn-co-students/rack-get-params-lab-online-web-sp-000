@@ -18,7 +18,7 @@ class Application
     elsif req.path.match(/cart/)
       resp.write display_cart
     elsif req.path.match(/add/)
-      item = req.params["item"]
+      item = req.params["item"] # parameter you want is obviously not going to be the same for every route
       resp.write add_to_cart(item)
     else
       resp.write "Path Not Found"
