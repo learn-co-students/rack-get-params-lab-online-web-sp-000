@@ -23,7 +23,7 @@ class Application
     end
     end
     if req.path.match(/add/)
-      item = req.params[]
+      item = 
       resp.write add_item(item)
     end
     if req.path.match(/search/)
