@@ -17,7 +17,7 @@ class Application
       item = req.params["item"]
       resp.write add_item(item)
     end
-    if req.path.match(/cart/)
+    if req.path.match(/cart/) # to include the logic necessary for this path we needed to include a nested IF statement
       if !@@cart.empty?
         @@cart.each do |item|
         resp.write "#{item}\n"
