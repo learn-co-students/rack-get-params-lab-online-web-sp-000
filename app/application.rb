@@ -49,7 +49,7 @@ class Application
     if @@cart == []
       return "Your cart is empty"
     else
-      @@cart
+      @@cart.join("\n")
     end
   end
 
