@@ -1,6 +1,7 @@
-class Application 
-  
-  @@items = ["Apples", "Carrots", "Pears"]
+
+class Application
+
+  @@items = ["Apples","Carrots","Pears"]
   @@cart = [] 
   
   def call(env)
@@ -32,6 +33,7 @@ class Application
       end
     else 
       resp.write "Path not found"
+
     end
     resp.finish
   end
